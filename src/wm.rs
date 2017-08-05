@@ -21,6 +21,7 @@ impl<'a> WM<'a> {
 				},
 				ConfReqEvent(confreq) => {
 					info!("Got Map Request: {:?}", confreq);
+					self.handle_configure(confreq);
 				},
 				_ => {
 					warn!("Got unknown event: {:?}", event);
@@ -33,5 +34,9 @@ impl<'a> WM<'a> {
 
 	fn handle_map(&self, req: MapReq) {
 		self.conn.map_window(req.window);
+	}
+
+	fn handle_configure(&self, req: ConfReq) {
+		self.conn.configure_window(&req.window, req.x, req.y, req.width, req.height);
 	}
 }
