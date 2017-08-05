@@ -1,0 +1,15 @@
+#!/bin/bash
+export RUST_BACKTRACE=1
+cargo build
+if [ $? != "0" ]; then
+	echo "Build failed"
+	exit 1
+fi
+Xephyr :2 -screen 640x480 & sleep 1
+PID=$(jobs -p)
+export DISPLAY=:2
+sxhkd &
+cargo run & sleep 2
+
+wait $PID
+sudo pkill potatowm
