@@ -16,14 +16,14 @@ impl<'a> WM<'a> {
 			use px::event::Event::*;
 			match event {
 				MapReqEvent(mapreq) => {
-					println!("Got Map Request: {:?}", mapreq);
+					info!("Got Map Request: {:?}", mapreq);
 					self.handle_map(mapreq);
 				},
 				ConfReqEvent(confreq) => {
-					println!("Got Map Request: {:?}", confreq);
+					info!("Got Map Request: {:?}", confreq);
 				},
 				_ => {
-					println!("Got unknown event: {:?}", event);
+					warn!("Got unknown event: {:?}", event);
 				}
 			};
 		}

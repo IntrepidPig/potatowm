@@ -5,3 +5,5 @@ authors = ["Benny A <virusdownloader7@gmail.com>"]
 
 [dependencies]
 px = { path = "../px" }
+log = "*"
+log4rs = "*"
