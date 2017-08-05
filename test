@@ -8,7 +8,6 @@ fi
 Xephyr :2 -screen 640x480 & sleep 1
 PID=$(jobs -p)
 export DISPLAY=:2
-sxhkd &
 cargo run & sleep 2
 
 wait $PID

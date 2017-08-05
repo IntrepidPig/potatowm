@@ -7,3 +7,4 @@ authors = ["Benny A <virusdownloader7@gmail.com>"]
 px = { path = "../px" }
 log = "*"
 log4rs = "*"
+xdg = "*"
