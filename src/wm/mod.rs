@@ -56,7 +56,7 @@ impl<'a> WM<'a> {
 				};
 			}
 			else if let Some(cmd) = self.requests.lock().unwrap().pop_front() {
-				self.handle_cmd(cmd.clone());
+				self.handle_cmd(cmd);
 			}
 		}
 
