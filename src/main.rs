@@ -3,12 +3,19 @@ extern crate px;
 extern crate log;
 extern crate log4rs;
 extern crate xdg;
+extern crate serde;
+#[macro_use]
+extern crate serde_derive;
+extern crate serde_json;
 
 mod wm;
 mod logs;
+mod comm;
 
 use std::process;
 use std::path::Path;
+use std::sync::{Arc, Mutex};
+use std::thread;
 
 use wm::WM;
 
@@ -27,7 +34,7 @@ fn main() {
 
 	let conn = px::conn::Connection::new().unwrap();
 	let events = px::conn::EventLoop::new(&conn).unwrap();
-	let mut potato = WM::new(&conn, events);
+	let mut potato =WM::new(&conn, events);
 	
 	let basedirs = xdg::BaseDirectories::new().unwrap();
 	let rcdir = basedirs.get_config_home().join(Path::new("potato"));
@@ -48,6 +55,12 @@ fn main() {
 	} else {
 		warn!("Couldn't find potatowmrc in {}", rcdir.to_string_lossy());
 	}
+
+	let requests = potato.requests.clone();
+
+	let sock_handle = thread::spawn(|| {
+		comm::run(requests);
+	});
 
 	match potato.run() {
 		Ok(_) => {

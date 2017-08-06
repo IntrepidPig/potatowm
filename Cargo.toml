@@ -8,3 +8,6 @@ px = { path = "../px" }
 log = "*"
 log4rs = "*"
 xdg = "*"
+serde = "*"
+serde_derive = "*"
+serde_json = "*"
