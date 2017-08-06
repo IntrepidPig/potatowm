@@ -1,5 +1,6 @@
 use px::conn::Connection;
 use px::event::ConfReq;
+use px::win::Window;
 
 use wm::node::Node;
 
@@ -15,20 +16,25 @@ pub struct View {
 
 pub enum ViewMode {
 	Floating,
-	Tiled,
+	Tiling,
 	Tabbed,
 	Fullscreen,
 }
 
 impl View {
-	pub fn add(&mut self, conn: &Connection, req: ConfReq) {
-		conn.configure_window(&req.window, req.x, req.y, req.width, req.height);
-		self.nodes.push(Node::Window(req.window));		
+	pub fn add(&mut self, conn: &Connection, win: Window) {
+		
+		self.nodes.push(Node::Window(win));		
 	}
 
 	pub fn layout(&self, conn: &Connection) {
 		match &self.mode {
 			Foating => {
+				for (i, node) in self.nodes.iter().enumerate() {
+					
+				}
+			},
+			Tiling => {
 				for (i, node) in self.nodes.iter().enumerate() {
 					
 				}

@@ -50,11 +50,18 @@ impl<'a> WM<'a> {
 		Ok(())
 	}
 
+	pub fn active_view(&mut self) -> &mut View {
+		&mut self.views[self.active_view]
+	}
+
 	fn handle_map(&self, req: MapReq) {
 		self.conn.map_window(req.window);
 	}
 
 	fn handle_configure(&mut self, req: ConfReq) {
-		self.views[self.active_view].add(&self.conn, req);
+		self.conn.configure_window(&req.window, req.x, req.y, req.width, req.height);
+
+		let active_view = self.active_view();
+		active_view.add(self.conn, req.window);
 	}
 }
