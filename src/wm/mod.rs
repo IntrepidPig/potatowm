@@ -30,7 +30,7 @@ impl<'a> WM<'a> {
 	}
 
 	pub fn run(&mut self) -> Result<(), ()> {
-		for event in &mut self.events {
+		while let Some(event) = self.events.next() {
 			use px::event::Event::*;
 			match event {
 				MapReqEvent(mapreq) => {
